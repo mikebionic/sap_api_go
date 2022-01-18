@@ -1,0 +1,6 @@
+MAX_UPLOAD_SIZE=1
+DB_USER=dbUser
+DB_PASS=dbPassword
+DB_HOST=ip/localhost
+DB_NAME=dbName
+DB_TYPE=sqlserver/postgres
