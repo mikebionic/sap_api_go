@@ -21,9 +21,11 @@ func NewUploadRepository(db *sql.DB) UploadRepository {
 		connection: db,
 	}
 }
+
 func (db *uploadConnection) Upload(data entity.Upload, place string) error {
 	switch place {
 	case "RpAccGuid":
+		fmt.Println(data.TargetGuid)
 		_, err := db.connection.Exec(`INSERT INTO tbl_dk_image ("ImgGuid","RpAccId","FilePath", "FileName") 
 		VALUES ($1, (SELECT "RpAccId" FROM tbl_dk_rp_acc WHERE "RpAccGuid"=$2 LIMIT 1),$3,$4);`,
 			data.ImageGuid, data.TargetGuid, data.Path, data.Name)

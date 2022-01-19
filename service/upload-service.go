@@ -71,7 +71,7 @@ func (service *uploadService) Upload(data []*multipart.FileHeader, guid string, 
 						upload.Name = fileHeader.Filename
 						upload.TargetGuid = guid
 						uploads = append(uploads, upload)
-						os.RemoveAll(fmt.Sprintf("./uploads/%s/%s/images/", place, uuid))
+						os.RemoveAll(fmt.Sprintf("./uploads/%s/%s/", place, uuid))
 					}
 					err = imageProcess(place, contentType, uuid)
 					if err != nil {
@@ -79,15 +79,19 @@ func (service *uploadService) Upload(data []*multipart.FileHeader, guid string, 
 						upload.Name = fileHeader.Filename
 						upload.TargetGuid = guid
 						uploads = append(uploads, upload)
-						os.RemoveAll(fmt.Sprintf("./uploads/%s/%s/images/", place, uuid))
+						os.RemoveAll(fmt.Sprintf("./uploads/%s/%s/", place, uuid))
 					} else {
+						upload.ImageGuid = uuid
+						upload.Name = uuid
+						upload.Path = fmt.Sprintf("./uploads/%s/%s/images/<FSIZE>/%s.%s", place, uuid, uuid, filetype[1])
+						upload.TargetGuid = guid
 						err := service.uploadRepository.Upload(upload, place)
 						if err != nil {
 							upload.Error = fmt.Sprintf("Database Error %s", err)
 							upload.Name = fileHeader.Filename
 							upload.TargetGuid = guid
 							uploads = append(uploads, upload)
-							os.RemoveAll(fmt.Sprintf("./uploads/%s/%s/images/", place, uuid))
+							os.RemoveAll(fmt.Sprintf("./uploads/%s/%s/", place, uuid))
 						} else {
 							upload.Error = ""
 							upload.ImageGuid = uuid
