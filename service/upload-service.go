@@ -1,10 +1,6 @@
 package service
 
 import (
-	"admin/dto"
-	"admin/entity"
-	"admin/repository"
-	"admin/tools"
 	"bytes"
 	"fmt"
 	"image/jpeg"
@@ -14,6 +10,10 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"sapgo/dto"
+	"sapgo/entity"
+	"sapgo/repository"
+	"sapgo/tools"
 	"strconv"
 	"strings"
 	"sync"

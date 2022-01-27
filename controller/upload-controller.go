@@ -1,12 +1,12 @@
 package controller
 
 import (
-	"admin/dto"
-	"admin/helper"
-	"admin/service"
 	"fmt"
 	"net/http"
 	"reflect"
+	"sapgo/dto"
+	"sapgo/helper"
+	"sapgo/service"
 
 	"github.com/gin-gonic/gin"
 )

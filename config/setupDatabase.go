@@ -1,10 +1,10 @@
 package config
 
 import (
-	"admin/tools"
 	"database/sql"
 	"fmt"
 	"os"
+	"sapgo/tools"
 
 	_ "github.com/denisenkom/go-mssqldb"
 	_ "github.com/lib/pq"

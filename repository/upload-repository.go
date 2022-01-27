@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"admin/dto"
-	"admin/entity"
 	"database/sql"
 	"fmt"
+	"sapgo/dto"
+	"sapgo/entity"
 )
 
 //INSERT INTO tbl_dk_image ("ImgGuid","RpAccId") VALUES ( '69d885d8-022e-484b-9cf2-e413ca27294c', (SELECT "RpAccId" FROM tbl_dk_rp_acc WHERE "RpAccGuid"='954edbe5-049a-455d-a7ab-0729a18affbf' LIMIT 1));

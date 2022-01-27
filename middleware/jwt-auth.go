@@ -1,11 +1,11 @@
 package middleware
 
 import (
-	"admin/helper"
-	"admin/service"
 	"fmt"
 	"log"
 	"net/http"
+	"sapgo/helper"
+	"sapgo/service"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"

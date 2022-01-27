@@ -1,14 +1,14 @@
 package main
 
 import (
-	"admin/config"
-	"admin/controller"
-	"admin/middleware"
-	"admin/repository"
-	"admin/service"
-	"admin/tools"
 	"database/sql"
 	"os"
+	"sapgo/config"
+	"sapgo/controller"
+	"sapgo/middleware"
+	"sapgo/repository"
+	"sapgo/service"
+	"sapgo/tools"
 
 	"github.com/gin-gonic/gin"
 )
