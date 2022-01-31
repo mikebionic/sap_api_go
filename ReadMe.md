@@ -1,12 +1,12 @@
-# Uplaod File
+# Upload File
 ```http
 POST localhost:8080/
 ```
 
 **At Least One Of Form Fields Should Be Specified**
 
-| FormFields | type | D`escription |
-| :--- | :--- | :--- |`
+| FormFields | type | Description |
+| :--- | :--- | :--- |
 | BrandGuid | uuid | Specify Brand UUID|
 | CGuid | uuid | Specify Company UUID|
 | RpAccGuid | uuid | Specify Admin UUID|
