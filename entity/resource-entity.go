@@ -1,0 +1,53 @@
+package entity
+
+import "gopkg.in/guregu/null.v4"
+
+type Resource struct {
+	ResId               null.Int
+	CId                 null.Int
+	DivId               null.Int
+	ResCatId            null.Int
+	UnitId              null.Int
+	BrandId             null.Int
+	UsageStatusId       null.Int
+	ResTypeId           null.Int
+	ResMainImgId        null.Int
+	ResMakerId          null.Int
+	ResLastVendorId     null.Int
+	ResGuid             null.String
+	ResRegNo            null.String
+	ResName             null.String
+	ResDesc             null.String
+	ResFullDesc         null.String
+	ResWidth            null.Float
+	ResHeight           null.Float
+	ResLength           null.Float
+	ResWeight           null.Float
+	ResProductionOnSale null.Bool
+	ResMinSaleAmount    null.Float
+	ResMaxSaleAmount    null.Float
+	ResMinSalePrice     null.Float
+	ResMaxSalePrice     null.Float
+	AddInf1             null.String
+	AddInf2             null.String
+	AddInf3             null.String
+	AddInf4             null.String
+	AddInf5             null.String
+	AddInf6             null.String
+	CreatedDate         null.String
+	ModifiedDate        null.String
+	CreatedUId          null.Int
+	ModifiedUId         null.Int
+	SyncDateTime        null.String
+	OptimisticLockField null.Int
+	GCRecord            null.Int
+	TagId               null.Int
+	IsMain              null.Int
+	ResVisibleIndex     null.Int
+	ResViewCnt          null.Int
+	Image               []Image
+	BarcodeValue        null.String
+	Brand               Brand
+	Category            Category
+	Price               null.Float
+}

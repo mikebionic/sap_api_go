@@ -19,7 +19,6 @@ import (
 	"sync"
 
 	"github.com/google/uuid"
-	"gopkg.in/guregu/null.v4"
 )
 
 var imageSizes = [2]string{"S", "M"}
@@ -215,9 +214,5 @@ func realImageProcess(file multipart.File, place, uuid, filetype string) error {
 }
 
 func (service *uploadService) GetFile(d dto.GetFile) (entity.Image, error) {
-	data, err := service.uploadRepository.GetFile(d)
-	str := data.FilePath
-	newStr := strings.Replace(str.String, "<FSize>", d.Size, 1)
-	data.FilePath = null.NewString(newStr, true)
-	return data, err
+	return service.uploadRepository.GetFile(d)
 }

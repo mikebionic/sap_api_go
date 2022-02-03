@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"sapgo/dto"
 	"sapgo/entity"
+	"strings"
+
+	"gopkg.in/guregu/null.v4"
 )
 
 //INSERT INTO tbl_dk_image ("ImgGuid","RpAccId") VALUES ( '69d885d8-022e-484b-9cf2-e413ca27294c', (SELECT "RpAccId" FROM tbl_dk_rp_acc WHERE "RpAccGuid"='954edbe5-049a-455d-a7ab-0729a18affbf' LIMIT 1));
@@ -42,18 +45,35 @@ func (db *uploadConnection) GetFile(data dto.GetFile) (entity.Image, error) {
 	switch data.File {
 	case "image":
 		var image entity.Image
-		row := db.connection.QueryRow(`SELECT "ImgId", "EmpId", "BrandId", "ResId", "CId", "UId",
-		"RpAccId" , "ImgGuid", "FileName", "FilePath", "CreatedDate", "ModifiedDate", "GCRecord"
-		FROM tbl_dk_image WHERE "ImgGuid"=$1;`, data.Guid)
+		row := db.connection.QueryRow(`SELECT "ImgId", "EmpId", "BrandId", "CId", "UId",
+		"RpAccId", "ResId", "ImgGuid", "FileName", "FilePath", "MinDarkFileName", "MinDarkFilePath",
+		"MaxDarkFileName", "MaxDarkFilePath", "MinLightFileName", "MinLightFilePath", "MaxLightFileName",
+		"MaxLightFilePath", "CreatedDate", "ModifiedDate", "CreatedUId", "ModifiedUId", "SyncDateTime", "OptimisticLockField",
+		"GCRecord", "ResCatId", "ProdId", "TagId" FROM tbl_dk_image WHERE "ImgGuid"=$1;`, data.Guid)
 
-		row.Scan(&image.ImgId, &image.EmpId, &image.BrandId, &image.ResId, &image.CId, &image.UId,
-			&image.RpAccId, &image.ImgGuid, &image.FileName, &image.FilePath, &image.CreatedDate,
-			&image.ModifiedDate, &image.GCRecord)
+		row.Scan(&image.ImgId, &image.EmpId, &image.BrandId, &image.CId, &image.UId, &image.RpAccId,
+			&image.ResId, &image.ImgGuid, &image.FileName, &image.FilePathR, &image.MinDarkFileName, &image.MinDarkFilePath,
+			&image.MaxDarkFileName, &image.MaxDarkFilePath, &image.MinLightFileName, &image.MinLightFilePath,
+			&image.MaxLightFileName, &image.MaxLightFilePath, &image.CreatedDate, &image.ModifiedDate,
+			&image.CreatedUId, &image.ModifiedUId, &image.SyncDateTime, &image.OptimisticLockField, &image.GCRecord,
+			&image.ResCatId, &image.ProdId, &image.TagId)
 		if image.ImgGuid.String == "" {
 			return entity.Image{}, fmt.Errorf("no such image")
 		}
-		return image, nil
+		sizedImage := ImageToSizes(image)
+		return sizedImage, nil
 	default:
 		return entity.Image{}, fmt.Errorf("no such file")
 	}
+}
+
+func ImageToSizes(d entity.Image) entity.Image {
+	str := d.FilePathR
+	newStr := strings.Replace(str.String, "<FSize>", "M", 1)
+	d.FilePathM = null.NewString(newStr, true)
+	newStr = strings.Replace(str.String, "<FSize>", "S", 1)
+	d.FilePathS = null.NewString(newStr, true)
+	newStr = strings.Replace(str.String, "<FSize>", "R", 1)
+	d.FilePathR = null.NewString(newStr, true)
+	return d
 }
