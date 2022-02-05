@@ -28,6 +28,10 @@ var (
 	resourceRepository repository.ResourceRepository = repository.NewResourceRepository(db)
 	resourceService    service.ResourceService       = service.NewResourceService(resourceRepository)
 	resourceController controller.ResourceController = controller.NewResourceController(resourceService)
+
+	categoryRepository repository.CategoryRepository = repository.NewCategoryRepository(db)
+	categoryService    service.CategoryService       = service.NewCategoryService(categoryRepository)
+	categoryController controller.CategoryController = controller.NewCategoryController(categoryService)
 )
 
 func main() {
@@ -49,7 +53,7 @@ func main() {
 	})
 	r.GET("/", uploadController.GetFile)
 	r.POST("/", uploadController.UploadImage)
-
+	r.GET("/category", categoryController.GetCategory)
 	r.GET("/company", companyController.GetCompany)
 
 	r.GET("/resource", resourceController.GetResource)
