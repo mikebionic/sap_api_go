@@ -82,7 +82,7 @@ func (service *uploadService) Upload(data []*multipart.FileHeader, guid string, 
 					} else {
 						upload.ImageGuid = uuid
 						upload.Name = uuid
-						upload.Path = fmt.Sprintf("./uploads/%s/%s/images/<FSIZE>/%s.%s", place, uuid, uuid, filetype[1])
+						upload.Path = fmt.Sprintf("./uploads/%s/%s/images/<FSize>/%s.%s", place, uuid, uuid, filetype[1])
 						upload.TargetGuid = guid
 						err := service.uploadRepository.Upload(upload, place)
 						if err != nil {
@@ -95,7 +95,7 @@ func (service *uploadService) Upload(data []*multipart.FileHeader, guid string, 
 							upload.Error = ""
 							upload.ImageGuid = uuid
 							upload.Name = fileHeader.Filename
-							upload.Path = fmt.Sprintf("./uploads/%s/%s/images/<FSIZE>/%s.%s", place, uuid, uuid, filetype[1])
+							upload.Path = fmt.Sprintf("./uploads/%s/%s/images/<FSize>/%s.%s", place, uuid, uuid, filetype[1])
 							upload.TargetGuid = guid
 							uploads = append(uploads, upload)
 						}

@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"sapgo/dto"
 	"sapgo/entity"
-	"strings"
 
 	"gopkg.in/guregu/null.v4"
 )
@@ -68,12 +67,8 @@ func (db *uploadConnection) GetFile(data dto.GetFile) (entity.Image, error) {
 }
 
 func ImageToSizes(d entity.Image) entity.Image {
-	str := d.FilePathR
-	newStr := strings.Replace(str.String, "<FSize>", "M", 1)
-	d.FilePathM = null.NewString(newStr, true)
-	newStr = strings.Replace(str.String, "<FSize>", "S", 1)
-	d.FilePathS = null.NewString(newStr, true)
-	newStr = strings.Replace(str.String, "<FSize>", "R", 1)
-	d.FilePathR = null.NewString(newStr, true)
+	d.FilePathM = null.NewString(("http://127.0.0.1:8080/get-image/M/" + d.ImgGuid.String), true)
+	d.FilePathR = null.NewString(("http://127.0.0.1:8080/get-image/R/" + d.ImgGuid.String), true)
+	d.FilePathS = null.NewString(("http://127.0.0.1:8080/get-image/S/" + d.ImgGuid.String), true)
 	return d
 }

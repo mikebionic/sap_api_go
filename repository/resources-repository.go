@@ -4,10 +4,13 @@ import (
 	"database/sql"
 	"fmt"
 	"sapgo/entity"
+
+	"gopkg.in/guregu/null.v4"
 )
 
 type ResourceRepository interface {
 	GetResource() []entity.Resource
+	GetImage(guid string) (imgPath null.String)
 }
 type resourceConnection struct {
 	connection *sql.DB
@@ -101,4 +104,10 @@ func (db *resourceConnection) GetResource() []entity.Resource {
 		resources = append(resources, resource)
 	}
 	return resources
+}
+
+func (db *resourceConnection) GetImage(guid string) (imgPath null.String) {
+	row := db.connection.QueryRow(`SELECT "FilePath" FROM tbl_dk_image WHERE "ImgGuid"=$1`, guid)
+	row.Scan(&imgPath)
+	return
 }

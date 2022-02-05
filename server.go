@@ -9,6 +9,7 @@ import (
 	"sapgo/repository"
 	"sapgo/service"
 	"sapgo/tools"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,10 +34,19 @@ func main() {
 	tools.EnvParser()
 
 	r := gin.Default()
+	r.Static("/get-img", "./uploads")
 	r.Use(middleware.SetupCors())
 
 	os.MkdirAll("./uploads/", os.ModePerm)
 
+	r.GET("/get-image/:size/:file", func(c *gin.Context) {
+		size := c.Param("size")
+		file := c.Param("file")
+		guid := strings.Split(file, ".")
+		str := resourceRepository.GetImage(guid[0])
+		newPath := strings.Replace(str.String, "<FSize>", size, 1)
+		c.File(newPath)
+	})
 	r.GET("/", uploadController.GetFile)
 	r.POST("/", uploadController.UploadImage)
 
