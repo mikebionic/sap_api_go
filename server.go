@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"os"
 	"sapgo/config"
 	"sapgo/controller"
@@ -57,5 +58,7 @@ func main() {
 	r.GET("/company", companyController.GetCompany)
 
 	r.GET("/resource", resourceController.GetResource)
-	r.Run()
+	host := os.Getenv("API_HOST")
+	port := os.Getenv("API_PORT")
+	r.Run(fmt.Sprintf("%s:%s", host, port))
 }
