@@ -28,7 +28,7 @@ func (db *categoryConneciton) GetCategory() []entity.Category {
 		categories   []entity.Category
 		visibleIndex string
 	)
-	if visibleIndex = os.Getenv("VISIBLE_INDEX"); visibleIndex == "" {
+	if visibleIndex = os.Getenv("CATEGORY_VISIBLE_INDEX"); visibleIndex == "" {
 		visibleIndex = "-1"
 	}
 	rows, err := db.connection.Query(`SELECT "ResCatId", "ResCatVisibleIndex","IsMain","ResCatName","ResCatDesc",

@@ -4,3 +4,6 @@ DB_PASS=dbPassword
 DB_HOST=ip/localhost
 DB_NAME=dbName
 DB_TYPE=sqlserver/postgres
+DB_PARAMS=some_parameters_for_sql_usually_sqlserver
+
+CATEGORY_VISIBLE_INDEX=0

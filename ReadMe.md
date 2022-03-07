@@ -5,17 +5,17 @@ POST localhost:8080/
 
 **At Least One Of Form Fields Should Be Specified**
 
-| FormFields | type | Description |
-| :--- | :--- | :--- |
-| BrandGuid | uuid | Specify Brand UUID|
-| CGuid | uuid | Specify Company UUID|
-| RpAccGuid | uuid | Specify Admin UUID|
-| UGuid | uuid | Specify User UUID|
-| ResGuid | uuid | Specify Resource UUID|
+| FormFields | type | Description           |
+| :--------- | :--- | :-------------------- |
+| BrandGuid  | uuid | Specify Brand UUID    |
+| CGuid      | uuid | Specify Company UUID  |
+| RpAccGuid  | uuid | Specify Admin UUID    |
+| UGuid      | uuid | Specify User UUID     |
+| ResGuid    | uuid | Specify Resource UUID |
 
-| FileField | type | Description |
-| :--- | :--- | :--- |
-| Files| File/image| Put any File Or Image You can put Multiple **To the Same FileField**|
+| FileField | type       | Description                                                          |
+| :-------- | :--------- | :------------------------------------------------------------------- |
+| Files     | File/image | Put any File Or Image You can put Multiple **To the Same FileField** |
 
 **MultipartForm Post Request With Files**
 
@@ -52,11 +52,11 @@ GET localhost:8080/
 }
 ```
 
-| FormFields | type | Description |
-| :--- | :--- | :--- |
-| File | string | fileType ('Image', 'doc')|
-| Guid | uuid | TargetGuid|
-| Size | uuid | **If Image** ('S'-small, 'M'-medium, 'R'-real)|
+| FormFields | type   | Description                                    |
+| :--------- | :----- | :--------------------------------------------- |
+| File       | string | fileType ('Image', 'doc')                      |
+| Guid       | uuid   | TargetGuid                                     |
+| Size       | uuid   | **If Image** ('S'-small, 'M'-medium, 'R'-real) |
 
 ## Response
 
