@@ -1,27 +1,71 @@
-# Upload File
+# SapApi Marketplace — Golang Implementation
+
+A part of SapApi Marketplace service running on Go, to handle operations like Bleve search, Websockets, File uploads.
+
+ 
+### 📂 File Upload & Retrieval API
+
+This API allows uploading and retrieving files (currently supports JPEG and PNG).
+It supports associating uploaded files with various entities such as brands, companies, admins, users, or resources.
+
+---
+
+## **1. Upload File**
+
+### **Endpoint**
+
 ```http
-POST localhost:8080/
+POST /  
+Host: localhost:8080
+Content-Type: multipart/form-data
 ```
 
-**At Least One Of Form Fields Should Be Specified**
+> **Note:** At least **one** of the following **form fields** must be provided.
 
-| FormFields | type | Description           |
-| :--------- | :--- | :-------------------- |
-| BrandGuid  | uuid | Specify Brand UUID    |
-| CGuid      | uuid | Specify Company UUID  |
-| RpAccGuid  | uuid | Specify Admin UUID    |
-| UGuid      | uuid | Specify User UUID     |
-| ResGuid    | uuid | Specify Resource UUID |
+### **Form Fields**
 
-| FileField | type       | Description                                                          |
-| :-------- | :--------- | :------------------------------------------------------------------- |
-| Files     | File/image | Put any File Or Image You can put Multiple **To the Same FileField** |
+| Field       | Type | Description              |
+| ----------- | ---- | ------------------------ |
+| `BrandGuid` | UUID | Brand identifier         |
+| `CGuid`     | UUID | Company identifier       |
+| `RpAccGuid` | UUID | Admin account identifier |
+| `UGuid`     | UUID | User identifier          |
+| `ResGuid`   | UUID | Resource identifier      |
 
-**MultipartForm Post Request With Files**
+### **File Field**
 
-**For Now Working With Jpeg And Png Only**
+| Field   | Type       | Description                                                                    |
+| ------- | ---------- | ------------------------------------------------------------------------------ |
+| `Files` | File/Image | One or more files to upload. Multiple files can be sent in the **same** field. |
 
-## Response
+**Supported formats:** `JPEG`, `PNG`
+
+---
+
+### **Example Request**
+
+Multipart form-data with files:
+
+```http
+POST / HTTP/1.1
+Host: localhost:8080
+Content-Type: multipart/form-data; boundary=----BOUNDARY
+
+------BOUNDARY
+Content-Disposition: form-data; name="BrandGuid"
+d3d10f66-a812-4a5b-8d32-b7e60184c7f5
+------BOUNDARY
+Content-Disposition: form-data; name="Files"; filename="download.jpeg"
+Content-Type: image/jpeg
+
+(binary content)
+------BOUNDARY--
+```
+
+---
+
+### **Example Response**
+
 ```json
 {
   "status": true,
@@ -39,26 +83,39 @@ POST localhost:8080/
 }
 ```
 
+---
+
+## **2. Retrieve File**
+
+### **Endpoint**
+
 ```http
-GET localhost:8080/
+GET /  
+Host: localhost:8080
+Content-Type: application/json
 ```
 
-## Request
+---
+
+### **Request Body**
+
 ```json
 {
-    "File":"image",
-    "Guid":"fd0b38ec-c409-48c5-9183-ae10d7ad8295",
-    "Size":"R"
+  "File": "image",
+  "Guid": "fd0b38ec-c409-48c5-9183-ae10d7ad8295",
+  "Size": "R"
 }
 ```
 
-| FormFields | type   | Description                                    |
-| :--------- | :----- | :--------------------------------------------- |
-| File       | string | fileType ('Image', 'doc')                      |
-| Guid       | uuid   | TargetGuid                                     |
-| Size       | uuid   | **If Image** ('S'-small, 'M'-medium, 'R'-real) |
+| Field  | Type   | Description                                                        |
+| ------ | ------ | ------------------------------------------------------------------ |
+| `File` | string | File type — `"image"` or `"doc"`                                   |
+| `Guid` | UUID   | `TargetGuid` of the uploaded file                                  |
+| `Size` | string | **If Image**: `"S"` = small, `"M"` = medium, `"R"` = real/original |
 
-## Response
+---
+
+### **Example Response**
 
 ```json
 {
@@ -82,3 +139,19 @@ GET localhost:8080/
   }
 }
 ```
+
+---
+
+## **📌 Notes**
+
+* The API is designed for **multipart file uploads** with entity association.
+* Currently supports **image storage & retrieval**, but can be extended for other file types.
+* File size variations (`S`, `M`, `R`) are generated for images to optimize usage.
+* Implemented in **Go (Golang)** with SapApi marketplace architecture.
+
+---
+
+If you want, I can also add **a "Workflow Diagram"** showing:
+`Client → Upload API → Storage → Retrieval API → Response`,
+so this doc looks like something you'd find in a professional API portal.
+Shall I prepare that diagram next?
