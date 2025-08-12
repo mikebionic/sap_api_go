@@ -148,10 +148,3 @@ Content-Type: application/json
 * Currently supports **image storage & retrieval**, but can be extended for other file types.
 * File size variations (`S`, `M`, `R`) are generated for images to optimize usage.
 * Implemented in **Go (Golang)** with SapApi marketplace architecture.
-
----
-
-If you want, I can also add **a "Workflow Diagram"** showing:
-`Client → Upload API → Storage → Retrieval API → Response`,
-so this doc looks like something you'd find in a professional API portal.
-Shall I prepare that diagram next?
